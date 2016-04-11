@@ -34,13 +34,17 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
+<script src="js/sweetalert.min.js"></script> 
+ 
+
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 
 
 
 </head>
 
 
-<body class="nav-md" onload="companylisting()">
+<body class="nav-md" onload="companylisting(); intershipDetails()">
 
   <div class="container body">
 
@@ -190,14 +194,14 @@
                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                   <li role="presentation" class="active"><a href="#tab_content1" id="view-tab" role="tab" data-toggle="tab" aria-expanded="true">View</a>
                   </li>
-                  <li role="presentation" class=""><a href="#tab_content2" role="tab" id="add-tab" data-toggle="tab" aria-expanded="true">Add</a>
+                  <li role="presentation" class=""><a href="#tab_content2" role="tab" id="add-tab" data-toggle="tab" aria-expanded="false">Add</a>
                   </li>
                 </ul>
 
                 <div id="myTabContent" class="tab-content">
 
                   
- <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="view-tab">
+              <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="view-tab">
 
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -210,15 +214,13 @@
 
                             <span class="section">View</span>
 
-                            <table class="table table-striped projects" id="viewalljob">
+                    <table class="table table-striped projects" id="viewallinternship">
                     <thead>
                       <tr>
                         <th style="width: 1%">#</th>
-                        <th>Company</th>
-                        <th>Location</th>
-                        <th>startdate</th>
-                        <th>enddate</th>
-                        <th>Position</th>
+                        <th style="width: 20%">Company Name</th>
+                        <th style="width: 50%">Notes</th>
+                        <th style="width: 15%">#Edit</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -255,13 +257,13 @@
 
 
 
-                            <div class="ln_solid"></div>
+                         <!--    <div class="ln_solid"></div>
                             <div class="form-group">
                               <div class="col-md-6 col-md-offset-3">
-                                <!-- <button type="submit" class="btn btn-primary">Cancel</button> -->
+                                <button type="submit" class="btn btn-primary">Cancel</button>
                                 <button id="send" type="submit" class="btn btn-success" onclick="workadd()">Update</button>
                               </div>
-                            </div>
+                            </div> -->
                           </form>
 
                         </div>
@@ -274,8 +276,7 @@
 
 
 <!-- TAB 2 -->
-                  <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="add-tab">
-
+                  <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="add-tab">
 
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -313,7 +314,7 @@
                             <div class="form-group">
                               <div class="col-md-6 col-md-offset-3">
                               <!-- redirect: to ADD tab OR addcompany page-->
-                                <button id="send" type="submit" class="btn btn-success" onclick="addinter()">Add Internship</button>
+                                <button id="addintern" type="submit" class="btn btn-success" onclick="addinter()">Add Internship</button>
                               </div>
                             </div>
 
@@ -445,12 +446,12 @@ $('#alerts').change(function() {
 
 <!-- End of ADDed JS -->
 
-
+<script src="js/util.js"></script>
 <script type="text/javascript">
 
   function companylisting(){
 
-    $.post("https://macinternship.herokuapp.com/viewallcompany",
+    $.post(HOST + "/viewallcompany",
     {
 
         search: "all",
@@ -468,7 +469,7 @@ $('#alerts').change(function() {
         }
 
         else{
-            alert("no");
+            //alert("no");
             new PNotify({
                                 title: 'Oh No!',
                                 text: 'Data not added',
@@ -499,43 +500,34 @@ if(sessionStorage.photoid != undefined){
 
   function addinter(){
 
-    $.post("https://macinternship.herokuapp.com/addinternship",
+    $.post(HOST + "/addinternship",
     {
 
-        username: "amrit2",
-        // companyid:
+        username: sessionStorage.username,
+        companyid:$('#companyname option:selected').val(),
         notes: $('#notes').val()
 
     },
     function(data, status){
         if(status === "success"){
-          for(i=0; i< data.length; i++){
-                var newOption = $('<option>');
-                newOption.attr('value', data[i].id).text(data[i].companyname);
-                $('#companyname').append(newOption);
-                if (sessionStorage.selectedValue == data[i].id) {
-                  // alert(semesterregistered);
-                  // alert(data[i].id);
-                  $("select option:contains(" + data[i].id + ")").prop("selected", true);
-              }
-                // try this it may work
-                // CheckComment
-                // $("#companyname > [value=" + data[i].id + "]").attr("selected", "true");
-            }
+          swal("Congratulations!", "Internship added!", "success")
+          setTimeout(function(){window.location.replace("internship.html");},2000);
+         // window.location.replace("internship.html");
         }
 
         else{
-            alert("no");
-            new PNotify({
-                                title: 'Oh No!',
-                                text: 'Data not added',
-                                type: 'error'
-                            });
+            swal("Oh No!", "Internship not added", "error")
+            
         }
 
     });
   }
+$("#addintern").click(function(event)
+{
+  event.preventDefault(); // cancel default behavior
 
+  //... rest of remove last logic
+}); 
 
 </script>
 
@@ -548,6 +540,99 @@ var selectedValue = "none";
         selectedValue = companyname.value;
     }
 
+</script>
+
+
+<script type="text/javascript">
+var total = 0;
+function intershipDetails(){
+  $.post(HOST + "/viewinternship",
+    {
+        
+        username: sessionStorage.username
+        
+        
+    },
+    function(data, status){
+k=1;
+for(i=0;i<data.length;i++){   
+sessionStorage.jobs = JSON.stringify(data);     
+$("#viewallinternship").find('tbody')
+    .append($('<tr>')
+       
+        .append($('<td>')
+               .text(k++)
+        )
+
+             
+         .append($('<td>')
+               .text(data[i].companyname)
+        )
+
+         
+        .append($('<td>')
+               .text(data[i].notes)
+               
+        )
+
+        .append($('<td>')
+                  .append($('<a>')
+                    .attr('onclick', 'del(this)')
+                    .attr('href', '#')
+                    .attr('class', 'btn btn-danger btn-xs') 
+                    .attr('id','like' + i)
+                    .attr('myid',i)
+                    .append($('<i>')
+                        .attr('class', 'fa fa-folder') 
+                    )  
+                    .text('Delete')  
+                )
+               
+        )
+
+  );
+}
+    });
+
+    
+}
+
+
+</script>  
+<script type="text/javascript">
+  function del(that){
+      
+      var job = JSON.parse(sessionStorage.jobs);
+      console.log(job[that.getAttribute('myid')])
+      //alert(job[that.getAttribute('myid')].jobid);
+      swal({   title: "Are you sure?",   text: "This job will be removed from your intership list!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Yes, delete it!",   closeOnConfirm: false }, 
+        
+        function(){  
+          console.log("inside");
+          console.log(job[that.getAttribute('myid')].superid);
+          $.post(HOST + "/deletedatafromtable",
+          {
+              id: job[that.getAttribute('myid')].superid,
+              table: "internship"         
+          },
+          function(data, status){
+              // $("#gpa").html(data[0].gpa); 
+              //$("#totalcompanies").html(data.length);
+              if(status === "success"){
+                swal("Deleted!", "Job has been deleted from your intershiplist.", "success");
+                 setTimeout(function(){location.reload();},2000);  
+              }
+    
+        });
+
+          
+
+
+       });
+
+       
+
+ }   
 </script>
 
 <!-- PNotify -->

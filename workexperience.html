@@ -34,12 +34,16 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
+<script src="js/sweetalert.min.js"></script> 
+ 
+
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 
 
 </head>
 
 
-<body class="nav-md" onload="workview(); companylisting(); workexperience()">
+<body class="nav-md" onload="companylisting(); workexperience()">
 
   <div class="container body">
 
@@ -216,6 +220,7 @@
                         <th>startdate</th>
                         <th>enddate</th>
                         <th>Position</th>
+                        <th style="width: 10%">#Edit</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -252,13 +257,13 @@
 
 
 
-                            <div class="ln_solid"></div>
+                          <!--   <div class="ln_solid"></div>
                             <div class="form-group">
                               <div class="col-md-6 col-md-offset-3">
-                                <!-- <button type="submit" class="btn btn-primary">Cancel</button> -->
+                                <button type="submit" class="btn btn-primary">Cancel</button>
                                 <button id="send" type="submit" class="btn btn-success" onclick="workadd()">Update</button>
                               </div>
-                            </div>
+                            </div> -->
                           </form>
 
                         </div>
@@ -290,7 +295,7 @@
 
 
                             <div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="location">Location<span class="required">*</span>
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="location">Country<span class="required">*</span>
                               </label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="location" class="form-control col-md-7 col-xs-12" name="location" required="required" type="text">
@@ -477,57 +482,29 @@ function workadd(){
     startdate: $('#startdate').val(),
     enddate: $('#enddate').val(),
     position: $('#position').val(),
+    companyid: $('#companyname option:selected').val()
   },
   function(data, status){
-    // alert("right");
-    //alert(data.length);
-    // alert("Data: " + data + "\nStatus: " + status);
     if(status === "success"){
-      new PNotify({
-        title: 'Success',
-        text: 'Data Added',
-        type: 'success'
-      });
+          swal("Congratulations!", "Workexperience added!", "success")
+          setTimeout(function(){window.location.replace("workexperience.html");},2000);
+         // window.location.replace("internship.html");
+        }
 
-      //  alert("Success");
-      //  localStorage.username = $('#username').val();
-      //  window.location.replace("student_template.html");
-    }
-
-    else{
-
-      new PNotify({
-        title: 'Oh No!',
-        text: 'Data not added',
-        type: 'error'
-      });
-    }
+        else{
+            swal("Oh No!", "Workexperience not added", "error")
+            
+        }
 
   });
 
 }
+$("#send").click(function(event)
+{
+  event.preventDefault(); // cancel default behavior
 
-function workview(){
-
-  $.post(HOST + "/viewstudentworkexperience",
-  {
-    username: "amrit2",
-    // companyid:
-  },
-  function(data, status){
-
-    alert("right");
-    alert(data.length);
-    alert("Data: " + data + "\nStatus: " + status);
-
-    if(status === "success"){
-        document.getElementById("location").value = data[0].location;
-      document.getElementById("startdate").value = data[0].startdate;
-      document.getElementById("enddate").value = data[0].enddate;
-      document.getElementById("position").value = data[0].position;
-    }
-  });
-}
+  //... rest of remove last logic
+}); 
 
 </script>
 
@@ -549,13 +526,7 @@ function companylisting(){
         var newOption = $('<option>');
         newOption.attr('value', data[i].id).text(data[i].companyname);
         $('#companyname').append(newOption);
-        // check this
-        // if (sessionStorage.companyid == data[i].id) {
-        //   // alert(semesterregistered);
-        //   // alert(data[i].id);
-        //   $("select option:contains(" + data[i].id + ")").prop("selected", true);
-        // }
-        // check this
+        
       }
     }
 
@@ -638,22 +609,52 @@ $("#viewalljob").find('tbody')
                .text(data[i].location)
         )
         .append($('<td>')
-               .text(data[i].startdate)
+               .text(dateFormat(data[i].startdate))
         )
 
         .append($('<td>')
-               .text(data[i].enddate)
+               .text(dateFormat(data[i].enddate))
         )
         .append($('<td>')
                .text(data[i].position)
         )
-
+        .append($('<td>')
+                  .append($('<a>')
+                    .attr('onclick', 'del(this)')
+                    .attr('href', '#')
+                    .attr('class', 'btn btn-danger btn-xs') 
+                    .attr('id','like' + i)
+                    .attr('myid',i)
+                    .append($('<i>')
+                        .attr('class', 'fa fa-folder') 
+                    )  
+                    .text('Delete')  
+                )
+               
+        )  
 
   );
 }
     });
 
 
+}
+
+function dateFormat(newdate){
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var date = new Date(newdate);
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  console.log(day, monthNames[monthIndex], year);
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
 }
 </script>
 
@@ -670,7 +671,41 @@ $("#viewalljob").find('tbody')
      }
 </script>
 <!-- <script src="js/util.js"></script> -->
+<script type="text/javascript">
+  function del(that){
+      
+      var job = JSON.parse(sessionStorage.jobs);
+      console.log(job[that.getAttribute('myid')])
+      //alert(job[that.getAttribute('myid')].jobid);
+      swal({   title: "Are you sure?",   text: "This job will be removed from your workexperience list!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Yes, delete it!",   closeOnConfirm: false }, 
+        
+        function(){  
+          console.log("inside");
+          console.log(job[that.getAttribute('myid')].superid);
+          $.post(HOST + "/deletedatafromtable",
+          {
+              id: job[that.getAttribute('myid')].superid,
+              table: "workexperience"         
+          },
+          function(data, status){
+              // $("#gpa").html(data[0].gpa); 
+              //$("#totalcompanies").html(data.length);
+              if(status === "success"){
+                swal("Deleted!", "Job has been deleted from your workexperience list.", "success");
+                 setTimeout(function(){location.reload();},2000);  
+              }
+    
+        });
 
+          
+
+
+       });
+
+       
+
+ }   
+</script>
 
 </body>
 
