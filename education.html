@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>iMIS</title>
+
+  <!-- Bootstrap core CSS -->
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/animate.min.css" rel="stylesheet">
+
+  <!-- Custom styling plus plugins -->
+  <link href="css/custom.css" rel="stylesheet">
+  <link href="css/icheck/flat/green.css" rel="stylesheet">
+
+
+  <script src="js/jquery.min.js"></script>
+
+  <!--[if lt IE 9]>
+  <script src="../assets/js/ie8-responsive-file-warning.js"></script>
+  <![endif]-->
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+<script src="js/sweetalert.min.js"></script> 
+ 
+
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+
+</head>
+
+
+<body class="nav-md" onload="educationview()">
+
+  <div class="container body">
+
+
+    <div class="main_container">
+
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="index.html" class="site_title"><i class="fa fa-university"></i> <span>iMIS</span></a>
+          </div>
+          <div class="clearfix"></div>
+
+
+          <!-- menu prile quick info -->
+          <div class="profile">
+            <div class="profile_pic">
+              <img id="photo2" src="images/img.jpg" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+              <span>Welcome,</span>
+              <h2 id="username"></h2>
+            </div>
+          </div>
+          <!-- /menu prile quick info -->
+
+          <br />
+
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+            <div class="menu_section">
+              <!-- <h3>Student</h3> -->
+              <br /><br /><br />
+              <ul class="nav side-menu">
+                <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="profile.html">Dashboard</a>
+                    </li>
+
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-edit"></i> Profile <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="viewpersonal.html">Personal</a>
+                    </li>
+                    <li><a href="skills.html">Skills</a>
+                    </li>
+                    <li><a href="education.html">Education</a>
+                    </li>
+                    <li><a href="workexperience.html">Work Experience</a>
+                    </li>
+                    <li><a href="internship.html">Internship</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-desktop"></i> Jobs <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="viewalljob.html">Job List</a>
+                    </li>
+                    <li><a href="viewlikedjob.html">Liked Jobs</a>
+                    </li>
+                    <li><a href="viewassignedjob.html">Assigned Jobs</a>
+                    </li>
+                </ul>
+              </li>
+
+
+            </ul>
+          </div>
+
+        </div>
+        <!-- /sidebar menu -->
+
+
+      </div>
+    </div>
+
+    <!-- top navigation -->
+    <div class="top_nav">
+
+      <div class="nav_menu">
+        <nav class="" role="navigation">
+          <div class="nav toggle">
+            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+          </div>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="">
+              <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <img id="photo1" src="images/img.jpg" alt=""><label id="username1"></label>
+                <span class=" fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
+                <li><a href="javascript:;">  Profile</a>
+                </li>
+
+                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+    <!-- /top navigation -->
+
+
+    <!-- Top TABS nav content -->
+
+
+    <!-- ENDsss Top TABS nav content -->
+
+
+
+
+    <!-- page content -->
+
+    <div class="right_col" role="main">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="dashboard_graph">
+
+            <!-- <div class="row x_title">
+            <div class="col-md-6">
+            <h3>Internship <small>information</small></h3>
+          </div>
+          <div class="col-md-6">
+        </div>
+      </div> -->
+
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2><i class="fa fa-bars"></i> Education</h2>
+
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+
+
+            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+              <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab_content1" id="view-tab" role="tab" data-toggle="tab" aria-expanded="true">View</a>
+                </li>
+                <li role="presentation" class=""><a href="#tab_content2" role="tab" id="add-tab" data-toggle="tab" aria-expanded="false">Add</a>
+                </li>
+              </ul>
+
+              <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="view-tab">
+
+
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                      <div class="x_content">
+
+                        <form class="form-horizontal form-label-left" novalidate>
+
+
+                          <span class="section">Degree</span>
+
+
+
+                          <!-- <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Degree Type<span class="required">*</span></label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class="form-control" id="degreetype">
+                          <option value="undergraduate">Under-Graduate</option>
+                          <option value="graduate">Graduate</option>
+                        </select>
+                      </div>
+                    </div> -->
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="degreetypeview">degreetype<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="degreetypeview" class="form-control col-md-7 col-xs-12"  name="degreetypeview"  required="required" type="text">
+                      </div>
+                    </div>
+
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="majorview">Major<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="majorview" class="form-control col-md-7 col-xs-12"  name="majorview"  required="required" type="text">
+                      </div>
+                    </div>
+
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gpaview">GPA <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="gpaview" class="form-control col-md-7 col-xs-12"   name="gpaview"  required="required" type="number" min="0" max="4">
+                      </div>
+                    </div>
+
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-6" for="universityview">University: <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="universityview" class="form-control col-md-7 col-xs-12" name="universityview"   required="required" type="text">
+                      </div>
+                    </div>
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-6" for="locationview">Location:<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="locationview" class="form-control col-md-7 col-xs-12" name="locationview"  required="required" type="text">
+                      </div>
+                    </div>
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="certificationsview">Certifications:
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="certificationsview" class="form-control col-md-7 col-xs-12" placeholder="e.g., CCNA by CISCO"  name="certificationsview" type="text">
+                      </div>
+                    </div>
+
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        <!-- <button type="submit" class="btn btn-primary">Cancel</button> -->
+                        <button id="send" type="submit" class="btn btn-success" onclick="educationadd()">Submit</button>
+                      </div>
+                    </div>
+
+                  </form>
+
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="add-tab">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+
+                <div class="x_content">
+
+                  <form class="form-horizontal form-label-left" novalidate>
+
+
+                    <span class="section">Degree</span>
+
+
+
+                    <!-- <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Degree Type<span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select class="form-control" id="degreetype">
+                    <option value="undergraduate">Under-Graduate</option>
+                    <option value="graduate">Graduate</option>
+                  </select>
+                </div>
+              </div> -->
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="degreetype">degreetype<span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input id="degreetype" class="form-control col-md-7 col-xs-12"  name="degreetype"  required="required" type="text">
+                </div>
+              </div>
+
+
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="major">Major<span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input id="major" class="form-control col-md-7 col-xs-12"  name="major"  required="required" type="text">
+                </div>
+              </div>
+
+
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gpa">GPA <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input id="gpa" class="form-control col-md-7 col-xs-12"   name="gpa"  required="required" type="number" min="0" max="4">
+                </div>
+              </div>
+
+
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-6" for="university">University: <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input id="university" class="form-control col-md-7 col-xs-12" name="university"   required="required" type="text">
+                </div>
+              </div>
+
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-6" for="location">Location:<span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input id="location" class="form-control col-md-7 col-xs-12" name="location"  required="required" type="text">
+                </div>
+              </div>
+
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="certifications">Certifications:
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input id="certifications" class="form-control col-md-7 col-xs-12" placeholder="e.g., CCNA by CISCO"  name="certifications" type="text">
+                </div>
+              </div>
+
+              <div class="ln_solid"></div>
+              <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                  <!-- <button type="submit" class="btn btn-primary">Cancel</button> -->
+                  <button id="send" type="submit" class="btn btn-success" onclick="educationadd()">Update</button>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+<!-- <div class="clearfix"></div> -->
+
+<!-- <div class="row"> -->
+
+<!-- </div> -->
+</div>
+</div>
+
+
+<div class="clearfix"></div>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- footer content -->
+<!-- <div class="main_container"> -->
+<footer>
+  <div class="copyright-info">
+    <p class="pull-right">©2016 All Rights Reserved. Privacy and Terms
+    </p>
+  </div>
+  <div class="clearfix"></div>
+</footer>
+
+<!-- /footer content -->
+
+</div>
+<!-- /page content -->
+</div>
+
+</div>
+
+
+
+<script src="js/bootstrap.min.js"></script>
+
+<!-- bootstrap progress js -->
+<script src="js/progressbar/bootstrap-progressbar.min.js"></script>
+<script src="js/nicescroll/jquery.nicescroll.min.js"></script>
+<!-- icheck -->
+<script src="js/icheck/icheck.min.js"></script>
+
+<script src="js/custom.js"></script>
+<!-- dropzone -->
+<script src="js/dropzone/dropzone.js"></script>
+<!-- pace -->
+<script src="js/pace/pace.min.js"></script>
+
+
+
+
+<!-- ADDed JS -->
+
+
+
+<!-- pace -->
+<!-- <script src="js/pace/pace.min.js"></script> -->
+<!-- <script src="js/custom.js"></script> -->
+<!-- form validation -->
+<script src="js/validator/validator.js"></script>
+<script>
+// initialize the validator function
+validator.message['date'] = 'not a real date';
+
+// validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+$('form')
+.on('blur', 'input[required], input.optional, select.required', validator.checkField)
+.on('change', 'select.required', validator.checkField)
+.on('keypress', 'input[required][pattern]', validator.keypress);
+
+$('.multi.required')
+.on('keyup blur', 'input', function() {
+  validator.checkField.apply($(this).siblings().last()[0]);
+});
+
+//bind the validation to the form submit event
+//$('#send').click('submit');//.prop('disabled', true);
+
+$('form').submit(function(e) {
+  e.preventDefault();
+  var submit = true;
+  // evaluate the form using generic validaing
+  if (!validator.checkAll($(this))) {
+    submit = false;
+  }
+
+  if (submit)
+  this.submit();
+  return false;
+});
+
+/* FOR DEMO ONLY */
+$('#vfields').change(function() {
+  $('form').toggleClass('mode2');
+}).prop('checked', false);
+
+$('#alerts').change(function() {
+  validator.defaults.alerts = (this.checked) ? false: true;
+  if (this.checked)
+  $('form .alert').remove();
+}).prop('checked', false);
+</script>
+
+<!-- End of ADDed JS -->
+<script src="js/util.js"></script>
+<script type="text/javascript">
+function educationadd() {
+  // alert($('#username').val());
+  $.post(HOST + "/addeducation",
+  {
+    username: sessionStorage.username,
+    degreetype: $('#degreetype').val(),
+    major: $('#major').val(),
+    gpa: $('#gpa').val(),
+    university: $('#university').val(),
+    // location: $('#location').val(),
+    certifications: $('#certifications').val()
+  },
+  function(data, status) {
+    // alert("right");
+    //alert(data.length);
+    // alert("Data: " + data + "\nStatus: " + status);
+    if(status === "success"){
+      swal("Congratulations!", "Data added!", "success")
+    //  alert("Success");
+      //  localStorage.username = $('#username').val();
+      //  window.location.replace("student_template.html");
+    }
+
+  });
+
+}
+
+function educationview() {
+  // alert($('#username').val());
+  //alert("what da hail is dis");
+  $.post(HOST + "/viewstudenteducation",
+  {
+    username: sessionStorage.username,
+  },
+  function(data, status) {
+    // alert("right");
+    //alert(data.length);
+    // alert("Data: " + data + "\nStatus: " + status);
+    if(status === "success"){
+    //  alert("Success");
+      //  localStorage.username = $('#username').val();
+      //  window.location.replace("student_template.html");
+      // document.getElementById("username2").value = data[0].studentid;
+      document.getElementById("degreetypeview").value = data[0].degreetype;
+      document.getElementById("majorview").value = data[0].major;
+      document.getElementById("gpaview").value = data[0].gpa;
+      document.getElementById("universityview").value = data[0].university;
+      document.getElementById("locationview").value = data[0].location;
+      document.getElementById("certificationsview").value = data[0].certifications;
+
+
+    }
+  });
+}
+
+
+</script>
+
+
+<script type="text/javascript">
+        $("#username").html(sessionStorage.firstname + " " + sessionStorage.lastname);
+        $("#username1").html(sessionStorage.firstname + " " + sessionStorage.lastname);      
+        if(sessionStorage.photoid != undefined){
+        $('#photo1').attr('src', sessionStorage.photoid);
+        $('#photo2').attr('src', sessionStorage.photoid);
+        
+     }  
+</script>
+
+<!-- PNotify -->
+<script type="text/javascript" src="js/notify/pnotify.core.js"></script>
+<script type="text/javascript" src="js/notify/pnotify.buttons.js"></script>
+<script type="text/javascript" src="js/notify/pnotify.nonblock.js"></script>
+
+
+
+</body>
+
+</html>
