@@ -220,6 +220,7 @@
                                 <th width="15%">University</th>
                                 <th width="15%">Location</th>
                                 <th width="15%">Certifications</th>
+                                <th width="5%"></th>
                             </tr>
                           </thead>
                           <tbody id="tableentry">
@@ -741,6 +742,35 @@ function educationadd() {
 
 }
 
+function deleteimagetap(that){
+  localStorage.rowidtodelete = that.getAttribute("rowid");
+  localStorage.rownametodelete = that.getAttribute("rowname");
+  localStorage.tabletodelete = that.getAttribute("table");
+
+  swal({   title: "Do you really want to delete "+
+    localStorage.rownametodelete + " (id: " +
+    localStorage.rowidtodelete + ") from "+
+    localStorage.tabletodelete,   showCancelButton: true,   
+    closeOnConfirm: false,   animation: "slide-from-top"}, 
+    function(inputValue){   
+      if (inputValue === false) 
+        return false;      
+      
+      //send post call  
+      $.post(HOST + "/deletedatafromtable",
+      {
+        id: localStorage.rowidtodelete,
+        table: localStorage.tabletodelete
+      },
+      function(data, status){  
+        swal("Deleted!", localStorage.rownametodelete +
+          " was deleted"); 
+        setTimeout(function(){ location.reload(); }, 3000);
+        
+      });
+    });
+}
+
 function educationview() {
  
   $.post(HOST + "/viewstudenteducation",
@@ -763,7 +793,16 @@ function educationview() {
         data[i].location+
         '</td><td>'+
         data[i].certifications+
+        '</td><td>'+
+
+        '<img src="images/delete.png" height="20px" width="20px"'+
+        'rowid="'+data[i].id+'" '+
+        'rowname="'+data[i].degreetype+'" '+
+        'table="education"'+
+        ' onclick="deleteimagetap(this)" />'+
         '</td></tr>';
+                
+
         $("#tableentry").append(valueToAppend);              
       }      
 });
